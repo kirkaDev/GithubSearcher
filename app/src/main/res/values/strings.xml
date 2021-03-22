@@ -2,4 +2,5 @@
     <string name="app_name">GithubSearcher</string>
     <string name="title_search">Search</string>
     <string name="title_profile">Profile</string>
+    <string name="search_hint">Enter the GitHub username</string>
 </resources>
