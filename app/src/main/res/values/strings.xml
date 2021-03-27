@@ -3,4 +3,5 @@
     <string name="title_search">Search</string>
     <string name="title_profile">Profile</string>
     <string name="search_hint">Enter the GitHub username</string>
+    <string name="avatar">Here was the avatar</string>
 </resources>

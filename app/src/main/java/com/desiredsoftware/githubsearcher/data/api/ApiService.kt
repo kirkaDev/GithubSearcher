@@ -1,4 +1,4 @@
-package com.desiredsoftware.githubsearcher.api
+package com.desiredsoftware.githubsearcher.data.api
 
 import com.desiredsoftware.githubsearcher.data.ProfileSearchResults
 import io.reactivex.Observable
