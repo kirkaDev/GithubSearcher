@@ -73,5 +73,8 @@ data class RepositoryItem(
     val updated_at: String,
     val url: String,
     val watchers: Int,
-    val watchers_count: Int
+    val watchers_count: Int,
+
+    // Filled from a nested network request
+    var last_commit: String
 )

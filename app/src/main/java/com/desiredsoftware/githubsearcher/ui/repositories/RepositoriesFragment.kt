@@ -1,20 +1,16 @@
 package com.desiredsoftware.githubsearcher.ui.repositories
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.desiredsoftware.githubsearcher.R
-import com.desiredsoftware.githubsearcher.data.Profile
-import com.desiredsoftware.githubsearcher.ui.searching.AccountSearchingAdapter
-import com.desiredsoftware.githubsearcher.ui.searching.OnClickUserListener
-import com.desiredsoftware.githubsearcher.ui.searching.SearchFragmentDirections
 
 class RepositoriesFragment : Fragment() {
 

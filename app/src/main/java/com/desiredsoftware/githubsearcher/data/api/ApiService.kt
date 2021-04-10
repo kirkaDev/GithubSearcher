@@ -5,7 +5,6 @@ import com.desiredsoftware.githubsearcher.data.ProfileSearchResults
 import com.desiredsoftware.githubsearcher.data.RepositoriesCollection
 import com.desiredsoftware.githubsearcher.data.commit.CommitSearchResults
 import io.reactivex.Observable
-import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,8 +23,8 @@ interface ApiService {
     @GET("users/{username}/repos")
     fun getRepositories(@Path("username") username: String): Observable<RepositoriesCollection>
 
-    @GET("users/{repo}/commits")
-    fun getCommits(@Path("repo") username: String): Observable<CommitSearchResults>
+    @GET("repos/{username}/{repo}/commits")
+    fun getCommits(@Path("username") username: String, @Path("repo") repo: String): Observable<CommitSearchResults>
 
     companion object Factory {
 

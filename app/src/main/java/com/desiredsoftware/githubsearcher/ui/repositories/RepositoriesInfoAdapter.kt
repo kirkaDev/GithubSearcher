@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.desiredsoftware.githubsearcher.R
-import com.desiredsoftware.githubsearcher.data.RepositoriesCollection
+import com.desiredsoftware.githubsearcher.data.RepositoryItem
 
-class RepositoriesInfoAdapter(private val repositoriesList: RepositoriesCollection) :
+class RepositoriesInfoAdapter(private val repositoriesList: List<RepositoryItem>) :
         RecyclerView.Adapter<RepositoriesInfoAdapter.ViewHolder>() {
 
     private lateinit var context: Context
@@ -29,7 +29,7 @@ class RepositoriesInfoAdapter(private val repositoriesList: RepositoriesCollecti
         holder.repositoryDescription?.text = R.string.description_is_empty.toString()
 
         // TODO: Get last commit name and date
-        holder.lastCommitTextView?.text = "Will be implemented"
+        holder.lastCommitTextView?.text = repositoriesList[position].last_commit
 
         holder.defaultBranch?.text = repositoriesList[position].default_branch
         holder.forksCountTextView?.text = repositoriesList[position].forks_count.toString()

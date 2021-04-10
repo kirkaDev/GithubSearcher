@@ -66,7 +66,7 @@ class SearchViewModel : ViewModel() {
                     throwable.printStackTrace()
                 },
                 {
-                    Log.d("Rx", "Running onCompleted in the: all followers data in observable is left")
+                    Log.d("Rx", "Running onCompleted in the search API method: all followers data in observable is left")
                 })
     }
 }
