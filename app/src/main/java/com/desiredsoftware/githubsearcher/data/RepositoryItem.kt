@@ -54,7 +54,7 @@ data class RepositoryItem(
     val notifications_url: String,
     val open_issues: Int,
     val open_issues_count: Int,
-    val owner: Owner,
+    val owner: Profile,
     val `private`: Boolean,
     val pulls_url: String,
     val pushed_at: String,

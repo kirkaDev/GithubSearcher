@@ -25,9 +25,9 @@ class SearchViewModel : ViewModel() {
 
     var searchResultsLD: MutableLiveData<List<Profile>> = MutableLiveData()
 
-    var searchResults =  mutableListOf<Profile>()
-
     fun getSearchResults(userNameForSearch: String) {
+
+        var searchResults =  mutableListOf<Profile>()
 
         apiClient.apiService.search(userNameForSearch)
             .map(Function { t -> t.items })
