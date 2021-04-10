@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.centerCrop
 import com.desiredsoftware.githubsearcher.R
+import com.desiredsoftware.githubsearcher.data.Profile
 import com.desiredsoftware.githubsearcher.data.ProfileSearchResults
 
-class AccountSearchingAdapter(private val searchResults: ProfileSearchResults) :
+class AccountSearchingAdapter(private val searchResults: List<Profile>,
+                              private val onClickModListener: OnClickUserListener,) :
         RecyclerView.Adapter<AccountSearchingAdapter.ViewHolder>() {
 
 
@@ -27,25 +29,28 @@ class AccountSearchingAdapter(private val searchResults: ProfileSearchResults) :
     }
 
     override fun onBindViewHolder(holder: AccountSearchingAdapter.ViewHolder, position: Int) {
-        //holder.avatarImageView?.setImageResource(R.drawable.ic_menu_search_24)
-        holder.usernameTextView?.text = searchResults.items[position].login
+        holder.usernameTextView?.text = searchResults[position].login
 
         // TODO: Implement
-        holder.followersNumber?.text = "Here will be the follower's number"
+        holder.followersNumber?.text = searchResults[position].followersNumber.toString()
 
         holder.avatarImageView?.let {
             Glide.with(context)
-                    .load(searchResults.items[position].avatar_url)
+                    .load(searchResults[position].avatar_url)
                     .placeholder(R.mipmap.ic_github)
                     .error(R.mipmap.ic_github)
                     .override(200, 200)
             .centerCrop().into(it)
         }
 
+        holder.avatarImageView?.setOnClickListener {
+            onClickModListener.onClicked(searchResults[position])
+        }
+
     }
 
     override fun getItemCount(): Int {
-        return searchResults.items.size
+        return searchResults.size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

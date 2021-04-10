@@ -9,12 +9,23 @@
         android:id="@+id/navigation_search"
         android:name="com.desiredsoftware.githubsearcher.ui.searching.SearchFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_repositoriesFragment"
+            app:destination="@id/repositoriesFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.desiredsoftware.githubsearcher.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/repositoriesFragment"
+        android:name="com.desiredsoftware.githubsearcher.ui.repositories.RepositoriesFragment"
+        android:label="fragment_repositories"
+        tools:layout="@layout/fragment_repositories" >
+        <argument android:name="login_for_repo_info" />
+    </fragment>
 
 </navigation>

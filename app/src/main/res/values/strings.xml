@@ -4,4 +4,12 @@
     <string name="title_profile">Profile</string>
     <string name="search_hint">Enter the GitHub username</string>
     <string name="avatar">Here was the avatar</string>
+    <string name="description_is_empty">Sorry, description is empty!</string>
+    <string name="repository_name_default">Here must be repository name</string>
+    <string name="repository_description_default">Here will be repository description</string>
+    <string name="last_commit_default">Here will be the last commit\'s date</string>
+    <string name="default_branch_default">Here will be name of the branch by default</string>
+    <string name="forks_number_default">Here will be count of forks maiden</string>
+    <string name="stars_number_default">Here will be stars count</string>
+    <string name="programming_language_default">Here will be default programming language</string>
 </resources>
