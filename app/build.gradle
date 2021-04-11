@@ -2,6 +2,9 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+
 }
 
 android {
@@ -52,8 +55,6 @@ dependencies {
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
-    //implementation 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.4'
-
 
     // Testing
     testImplementation 'junit:junit:4.13.2'
@@ -75,5 +76,11 @@ dependencies {
 
     // UI components
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:27.0.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 }
 

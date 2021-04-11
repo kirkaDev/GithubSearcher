@@ -8,6 +8,9 @@ import com.desiredsoftware.githubsearcher.data.api.ApiClient
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RepositoriesViewModel : ViewModel() {
 
@@ -26,8 +29,7 @@ class RepositoriesViewModel : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(
-                {
-                    repo ->
+                { repo ->
                     Log.d("Rx", "Running getCommits API method for the repository: ${repo.name}")
                     apiClient.apiService.getCommits(userNameForSearch, repo.name)
                         .observeOn(AndroidSchedulers.mainThread())
@@ -36,16 +38,16 @@ class RepositoriesViewModel : ViewModel() {
                             {
                                 Log.d("Rx", "Commits list for the repo: ${repo.name}:")
 
-                                if (it!=null)
-                                {
+                                if (it != null) {
                                     // Take the first commit in the request for getting the last commit date
-                                    repo.last_commit= it[0].commit.author.date
-                                    it.forEach {
-                                            commit ->  Log.d("Rx", "Commit description: ${commit.commit.message}")
+                                    repo.last_commit = getRussianDateFormat(it.first().commit.author.date)
+
+                                    it.forEach { commit ->
+                                        Log.d(
+                                            "Rx", "Commit description: ${commit.commit.message}"
+                                        )
                                     }
-                                }
-                                else
-                                {
+                                } else {
                                     repo.last_commit = "There are no any commits here"
                                 }
 
@@ -60,13 +62,28 @@ class RepositoriesViewModel : ViewModel() {
                                 repositoriesResultsLD.value = outRepos
                             })
                 },
-                {
-                        throwable ->
-                    Log.d("Rx", "Got throwable in the getCommits API method: ${throwable.printStackTrace()}")
+                { throwable ->
+                    Log.d(
+                        "Rx",
+                        "Got throwable in the getCommits API method: ${throwable.printStackTrace()}"
+                    )
                     throwable.printStackTrace()
                 },
                 {
-                    Log.d("Rx", "Running onCompleted in the getCommits API method: all followers data in observable is left")
+                    Log.d(
+                        "Rx",
+                        "Running onCompleted in the getCommits API method: all followers data in observable is left"
+                    )
                 })
+    }
+
+    private fun getRussianDateFormat (dateForReformatting: String) : String {
+        val inDateFormat: DateFormat =
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        val outDateFormat: DateFormat =
+            SimpleDateFormat("MM.dd.yyyy")
+        val inDate : Date = inDateFormat.parse(dateForReformatting)
+
+        return outDateFormat.format(inDate)
     }
 }

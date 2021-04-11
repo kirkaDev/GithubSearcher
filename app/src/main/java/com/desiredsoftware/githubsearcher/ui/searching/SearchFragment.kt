@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.desiredsoftware.githubsearcher.BuildConfig
@@ -36,6 +39,7 @@ class SearchFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_search, container, false)
 
         val searchView : SearchView = root.findViewById(R.id.searchView)
+        val progressBar : ProgressBar = root.findViewById(R.id.progressBar)
 
         // To save time and call the API
         if(BuildConfig.DEBUG)
@@ -43,6 +47,8 @@ class SearchFragment : Fragment() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+
+                progressBar.isVisible = true
                     searchViewModel.getSearchResults(query)
                 return false
             }
@@ -66,8 +72,9 @@ class SearchFragment : Fragment() {
                         navController.navigate(action)
                     }
                 })
+            progressBar.isVisible = false
             recyclerViewSearch.adapter = searchAdapter
-            recyclerViewSearch.layoutManager = LinearLayoutManager(context)
+            recyclerViewSearch.layoutManager = GridLayoutManager(context, 3)
         })
 
         return root
