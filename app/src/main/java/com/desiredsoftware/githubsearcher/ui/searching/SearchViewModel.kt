@@ -1,35 +1,27 @@
 package com.desiredsoftware.githubsearcher.ui.searching
-
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.desiredsoftware.githubsearcher.data.FollowersSearchResults
 import com.desiredsoftware.githubsearcher.data.Profile
-import com.desiredsoftware.githubsearcher.data.ProfileSearchResults
 import com.desiredsoftware.githubsearcher.data.api.ApiClient
+import com.desiredsoftware.utils.BASE_URL
+import com.desiredsoftware.utils.DEVELOPER_PERSONAL_TOKEN
 import io.reactivex.Observable
-import io.reactivex.ObservableSource
-import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 class SearchViewModel : ViewModel() {
 
-    private val baseUrl = "https://api.github.com/"
-
-    private val apiClient: ApiClient = ApiClient(baseUrl)
+    private val apiClient: ApiClient = ApiClient(BASE_URL)
 
     var searchResultsLD: MutableLiveData<List<Profile>> = MutableLiveData()
 
     fun getSearchResults(userNameForSearch: String) {
 
-        var searchResults =  mutableListOf<Profile>()
+        val searchResults =  mutableListOf<Profile>()
 
-        apiClient.apiService.search(userNameForSearch)
+        apiClient.apiService.search(DEVELOPER_PERSONAL_TOKEN, userNameForSearch)
             .map(Function { t -> t.items })
             .flatMap { profileList -> Observable.fromIterable(profileList) }
             .observeOn(AndroidSchedulers.mainThread())
@@ -38,7 +30,7 @@ class SearchViewModel : ViewModel() {
                 {
                     profile ->
                     Log.d("Rx", "Running getFollowers API method for the user: ${profile.login}")
-                    apiClient.apiService.getFollowers(profile.login)
+                    apiClient.apiService.getFollowers(DEVELOPER_PERSONAL_TOKEN, profile.login)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribe(
@@ -47,7 +39,6 @@ class SearchViewModel : ViewModel() {
                                 it.forEach {
                                         follower ->  Log.d("Rx", "${follower.login}")
                                 }
-
                                 profile.followersNumber=it.size
                                 searchResults.add(profile)
                             },

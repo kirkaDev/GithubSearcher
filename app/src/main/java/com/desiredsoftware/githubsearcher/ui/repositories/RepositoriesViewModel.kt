@@ -5,18 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.desiredsoftware.githubsearcher.data.RepositoryItem
 import com.desiredsoftware.githubsearcher.data.api.ApiClient
+import com.desiredsoftware.utils.BASE_URL
+import com.desiredsoftware.utils.DEVELOPER_PERSONAL_TOKEN
+import com.desiredsoftware.utils.getRussianDateFormat
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 class RepositoriesViewModel : ViewModel() {
 
-
-    private val baseUrl = "https://api.github.com/"
-    val apiClient: ApiClient = ApiClient(baseUrl)
+    val apiClient: ApiClient = ApiClient(BASE_URL)
 
     var repositoriesResultsLD: MutableLiveData<List<RepositoryItem>> = MutableLiveData()
 
@@ -24,14 +22,14 @@ class RepositoriesViewModel : ViewModel() {
 
         val outRepos =  mutableListOf<RepositoryItem>()
 
-        apiClient.apiService.getRepositories(userNameForSearch)
+        apiClient.apiService.getRepositories(DEVELOPER_PERSONAL_TOKEN, userNameForSearch)
             .flatMap { repoList -> Observable.fromIterable(repoList) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(
                 { repo ->
                     Log.d("Rx", "Running getCommits API method for the repository: ${repo.name}")
-                    apiClient.apiService.getCommits(userNameForSearch, repo.name)
+                    apiClient.apiService.getCommits(DEVELOPER_PERSONAL_TOKEN, userNameForSearch, repo.name)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribe(
@@ -77,13 +75,5 @@ class RepositoriesViewModel : ViewModel() {
                 })
     }
 
-    private fun getRussianDateFormat (dateForReformatting: String) : String {
-        val inDateFormat: DateFormat =
-            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        val outDateFormat: DateFormat =
-            SimpleDateFormat("MM.dd.yyyy")
-        val inDate : Date = inDateFormat.parse(dateForReformatting)
 
-        return outDateFormat.format(inDate)
-    }
 }

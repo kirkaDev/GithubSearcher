@@ -9,22 +9,24 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
 
+
     @GET("search/users")
-    fun search(@Query("q") query: String): Observable<ProfileSearchResults>
+    fun search(@Header("Authorization") token: String, @Query("q") query: String): Observable<ProfileSearchResults>
 
     @GET("users/{username}/followers")
-    fun getFollowers(@Path("username") username: String): Observable<FollowersSearchResults>
+    fun getFollowers(@Header("Authorization") token: String, @Path("username") username: String): Observable<FollowersSearchResults>
 
     @GET("users/{username}/repos")
-    fun getRepositories(@Path("username") username: String): Observable<RepositoriesCollection>
+    fun getRepositories(@Header("Authorization") token: String, @Path("username") username: String): Observable<RepositoriesCollection>
 
     @GET("repos/{username}/{repo}/commits")
-    fun getCommits(@Path("username") username: String, @Path("repo") repo: String): Observable<CommitSearchResults>
+    fun getCommits(@Header("Authorization") token: String, @Path("username") username: String, @Path("repo") repo: String): Observable<CommitSearchResults>
 
     companion object Factory {
 
@@ -34,7 +36,7 @@ interface ApiService {
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl(baseUrl)
                     .build()
-            return retrofit.create(ApiService::class.java);
+            return retrofit.create(ApiService::class.java)
         }
     }
 

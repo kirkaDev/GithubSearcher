@@ -54,8 +54,6 @@ class SearchFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                // Due to calls API restriction for the unauthorized users 60 per hour (savings)
-                if(!BuildConfig.DEBUG)
                 searchViewModel.getSearchResults(newText)
 
                 return false

@@ -11,13 +11,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.desiredsoftware.githubsearcher.BuildConfig
 import com.desiredsoftware.githubsearcher.R
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GetTokenResult
 import com.google.firebase.auth.OAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 
 class ProfileFragment : Fragment() {
@@ -30,9 +33,23 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        var user: FirebaseUser =  Firebase.auth.currentUser
+
+        val user: FirebaseUser? =  Firebase.auth.currentUser
+
+        user?.getIdToken(true)?.addOnCompleteListener(OnCompleteListener<GetTokenResult> { task ->
+            if (task.isSuccessful) {
+                val idToken = task.result!!.token
+                Log.d("Auth Token", "$idToken")// Send token to your backend via HTTPS
+                // ...
+            } else {
+                // Handle error -> task.getException();
+                Log.d("Auth Token", "Get token fail")// Send token to your backend via HTTPS
+            }
+        })
+
 
         if (user==null) {
+
             val provider: OAuthProvider.Builder = OAuthProvider.newBuilder("github.com")
             Firebase.auth
                 .startActivityForSignInWithProvider(requireActivity(), provider.build())
