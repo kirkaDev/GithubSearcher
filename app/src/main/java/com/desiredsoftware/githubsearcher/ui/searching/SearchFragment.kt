@@ -13,9 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.desiredsoftware.githubsearcher.BuildConfig
 import com.desiredsoftware.githubsearcher.R
 import com.desiredsoftware.githubsearcher.data.Profile
 
@@ -36,14 +34,12 @@ class SearchFragment : Fragment() {
 
         navController = requireParentFragment().findNavController()
 
+        navController = requireParentFragment().findNavController()
+
         val root = inflater.inflate(R.layout.fragment_search, container, false)
 
         val searchView : SearchView = root.findViewById(R.id.searchView)
         val progressBar : ProgressBar = root.findViewById(R.id.progressBar)
-
-        // To save time and call the API
-        if(BuildConfig.DEBUG)
-        searchView.setQuery("kirkadev", false)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {

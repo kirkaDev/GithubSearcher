@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">GithubSearcher</string>
-    <string name="title_search">Search</string>
+    <string name="title_search_profile">Search profile</string>
     <string name="title_profile">Profile</string>
     <string name="search_hint">Enter the GitHub username</string>
     <string name="avatar">Here was the avatar</string>
@@ -12,4 +12,17 @@
     <string name="forks_number_default">Here will be count of forks maiden</string>
     <string name="stars_number_default">Here will be stars count</string>
     <string name="programming_language_default">Here will be default programming language</string>
+    <string name="title_repositories">Repositories</string>
+    <string name="not_authorized">You are not logged in,\nso I cannot show information\nabout you</string>
+    <string name="button_authorize">Login with OAuth</string>
+    <string name="title_login">Login</string>
+    <string name="label_username">Name</string>
+    <string name="label_email">E-mail</string>
+    <string name="repo_title">Repository name</string>
+    <string name="repo_description_header">Description</string>
+    <string name="last_commit_header">Last commit</string>
+    <string name="default_branch_header">Default branch</string>
+    <string name="forks_number_header">Forks</string>
+    <string name="stars_header">Stars</string>
+    <string name="language_header">Language</string>
 </resources>

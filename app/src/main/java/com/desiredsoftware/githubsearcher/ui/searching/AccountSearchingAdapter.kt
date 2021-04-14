@@ -31,8 +31,7 @@ class AccountSearchingAdapter(private val searchResults: List<Profile>,
     override fun onBindViewHolder(holder: AccountSearchingAdapter.ViewHolder, position: Int) {
         holder.usernameTextView?.text = searchResults[position].login
 
-        // TODO: Implement
-        holder.followersNumber?.text = searchResults[position].followersNumber.toString()
+        holder.followersNumber?.text = "Followers: " + searchResults[position].followersNumber.toString()
 
         holder.avatarImageView?.let {
             Glide.with(context)

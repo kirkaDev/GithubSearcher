@@ -3,6 +3,7 @@ package com.desiredsoftware.githubsearcher.ui.repositories
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.desiredsoftware.githubsearcher.BuildConfig
 import com.desiredsoftware.githubsearcher.data.RepositoryItem
 import com.desiredsoftware.githubsearcher.data.api.ApiClient
 import com.desiredsoftware.utils.BASE_URL
@@ -14,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 
 class RepositoriesViewModel : ViewModel() {
 
-    val apiClient: ApiClient = ApiClient(BASE_URL)
+    private val apiClient: ApiClient = ApiClient(BASE_URL)
 
     var repositoriesResultsLD: MutableLiveData<List<RepositoryItem>> = MutableLiveData()
 
@@ -40,10 +41,12 @@ class RepositoriesViewModel : ViewModel() {
                                     // Take the first commit in the request for getting the last commit date
                                     repo.last_commit = getRussianDateFormat(it.first().commit.author.date)
 
-                                    it.forEach { commit ->
-                                        Log.d(
-                                            "Rx", "Commit description: ${commit.commit.message}"
-                                        )
+                                    if(BuildConfig.DEBUG) {
+                                        it.forEach { commit ->
+                                            Log.d(
+                                                "Rx", "Commit description: ${commit.commit.message}"
+                                            )
+                                        }
                                     }
                                 } else {
                                     repo.last_commit = "There are no any commits here"
@@ -74,6 +77,4 @@ class RepositoriesViewModel : ViewModel() {
                     )
                 })
     }
-
-
 }

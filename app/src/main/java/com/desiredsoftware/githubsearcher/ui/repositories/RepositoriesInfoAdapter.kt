@@ -28,7 +28,6 @@ class RepositoriesInfoAdapter(private val repositoriesList: List<RepositoryItem>
         else
         holder.repositoryDescription?.text = R.string.description_is_empty.toString()
 
-        // TODO: Get last commit name and date
         holder.lastCommitTextView?.text = repositoriesList[position].last_commit
 
         holder.defaultBranch?.text = repositoriesList[position].default_branch

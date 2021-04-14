@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.desiredsoftware.githubsearcher.R
@@ -31,6 +30,9 @@ class RepositoriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
+
+
         viewModel = ViewModelProvider(this).get(RepositoriesViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_repositories, container, false)
@@ -45,7 +47,7 @@ class RepositoriesFragment : Fragment() {
             repositoriesAdapter = RepositoriesInfoAdapter(it)
             progressBar.isVisible = false
             recyclerViewRepositories.adapter = repositoriesAdapter
-            recyclerViewRepositories.layoutManager = GridLayoutManager(context, 2)
+            recyclerViewRepositories.layoutManager = LinearLayoutManager(context)
         })
 
         return root
