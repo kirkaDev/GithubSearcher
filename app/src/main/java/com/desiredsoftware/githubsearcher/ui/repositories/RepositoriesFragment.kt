@@ -30,9 +30,6 @@ class RepositoriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
-
-
         viewModel = ViewModelProvider(this).get(RepositoriesViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_repositories, container, false)
