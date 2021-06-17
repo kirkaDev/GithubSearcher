@@ -1,4 +1,4 @@
-package com.desiredsoftware.githubsearcher.data.api
+package com.desiredsoftware.githubsearcher.data.api.rx
 
 import com.desiredsoftware.githubsearcher.data.FollowersSearchResults
 import com.desiredsoftware.githubsearcher.data.ProfileSearchResults
@@ -13,11 +13,11 @@ import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface ApiService {
+interface RxApiService {
 
 
     @GET("search/users")
-    fun search(@Header("Authorization") token: String, @Query("q") query: String): Observable<ProfileSearchResults>
+    fun searchProfiles(@Header("Authorization") token: String, @Query("q") query: String): Observable<ProfileSearchResults>
 
     @GET("users/{username}/followers")
     fun getFollowers(@Header("Authorization") token: String, @Path("username") username: String): Observable<FollowersSearchResults>
@@ -30,13 +30,13 @@ interface ApiService {
 
     companion object Factory {
 
-        fun create(baseUrl: String): ApiService {
+        fun create(baseUrl: String): RxApiService {
             val retrofit = Retrofit.Builder()
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl(baseUrl)
                     .build()
-            return retrofit.create(ApiService::class.java)
+            return retrofit.create(RxApiService::class.java)
         }
     }
 

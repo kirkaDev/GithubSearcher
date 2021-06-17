@@ -1,4 +1,4 @@
-package com.desiredsoftware.githubsearcher.ui.login
+package com.desiredsoftware.githubsearcher.ui.fragment.login
 
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.desiredsoftware.githubsearcher.R
+import com.desiredsoftware.githubsearcher.ui.login.LoginViewModel
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.button.MaterialButton
@@ -45,7 +46,8 @@ class LoginFragment : Fragment() {
                         OnSuccessListener<AuthResult?> {
                             Log.d("OAuth", "Sign in is success")
 
-                            val action = LoginFragmentDirections.actionLoginFragmentToNavigationProfile()
+                            val action =
+                                LoginFragmentDirections.actionLoginFragmentToNavigationProfile()
                             navController.navigate(action)
 
                     })

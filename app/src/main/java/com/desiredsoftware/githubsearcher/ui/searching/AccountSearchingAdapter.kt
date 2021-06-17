@@ -8,13 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.TransformationUtils.centerCrop
 import com.desiredsoftware.githubsearcher.R
 import com.desiredsoftware.githubsearcher.data.Profile
-import com.desiredsoftware.githubsearcher.data.ProfileSearchResults
 
 class AccountSearchingAdapter(private val searchResults: List<Profile>,
-                              private val onClickModListener: OnClickUserListener,) :
+                              private val onClickUserListener: OnClickUserListener,) :
         RecyclerView.Adapter<AccountSearchingAdapter.ViewHolder>() {
 
 
@@ -43,7 +41,7 @@ class AccountSearchingAdapter(private val searchResults: List<Profile>,
         }
 
         holder.avatarImageView?.setOnClickListener {
-            onClickModListener.onClicked(searchResults[position])
+            onClickUserListener.onClicked(searchResults[position])
         }
 
     }

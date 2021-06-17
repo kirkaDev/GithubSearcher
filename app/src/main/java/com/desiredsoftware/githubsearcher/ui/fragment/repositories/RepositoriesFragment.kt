@@ -1,4 +1,4 @@
-package com.desiredsoftware.githubsearcher.ui.repositories
+package com.desiredsoftware.githubsearcher.ui.fragment.repositories
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +13,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.desiredsoftware.githubsearcher.R
+import com.desiredsoftware.githubsearcher.ui.repositories.RepositoriesInfoAdapter
+import com.desiredsoftware.githubsearcher.ui.repositories.RepositoriesViewModel
 
 class RepositoriesFragment : Fragment() {
 

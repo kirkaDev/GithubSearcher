@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.desiredsoftware.githubsearcher.ui.searching.SearchFragment"
+        android:name="com.desiredsoftware.githubsearcher.ui.fragment.searching.SearchFragment"
         android:label="@string/title_search_profile"
         tools:layout="@layout/fragment_search" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.desiredsoftware.githubsearcher.ui.profile.ProfileFragment"
+        android:name="com.desiredsoftware.githubsearcher.ui.fragment.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/repositoriesFragment"
-        android:name="com.desiredsoftware.githubsearcher.ui.repositories.RepositoriesFragment"
+        android:name="com.desiredsoftware.githubsearcher.ui.fragment.repositories.RepositoriesFragment"
         android:label="@string/title_repositories"
         tools:layout="@layout/fragment_repositories" >
         <argument android:name="login_for_repo_info" />
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.desiredsoftware.githubsearcher.ui.login.LoginFragment"
+        android:name="com.desiredsoftware.githubsearcher.ui.fragment.login.LoginFragment"
         android:label="@string/title_login"
         tools:layout="@layout/fragment_login" >
         <action

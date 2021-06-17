@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.desiredsoftware.githubsearcher.BuildConfig
 import com.desiredsoftware.githubsearcher.data.RepositoryItem
-import com.desiredsoftware.githubsearcher.data.api.ApiClient
+import com.desiredsoftware.githubsearcher.data.api.rx.RxApiClient
 import com.desiredsoftware.utils.BASE_URL
 import com.desiredsoftware.utils.DEVELOPER_PERSONAL_TOKEN
 import com.desiredsoftware.utils.getRussianDateFormat
@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 
 class RepositoriesViewModel : ViewModel() {
 
-    private val apiClient: ApiClient = ApiClient(BASE_URL)
+    private val apiClient: RxApiClient = RxApiClient(BASE_URL)
 
     var repositoriesResultsLD: MutableLiveData<List<RepositoryItem>> = MutableLiveData()
 

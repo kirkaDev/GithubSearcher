@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.searching.SearchFragment">
+    tools:context=".ui.fragment.searching.SearchFragment">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="@+id/searchView" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/accountSearchRecycler"
+        android:id="@+id/profile_searching_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

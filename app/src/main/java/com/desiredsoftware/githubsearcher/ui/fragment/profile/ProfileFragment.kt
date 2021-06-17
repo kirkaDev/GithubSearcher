@@ -1,11 +1,10 @@
-package com.desiredsoftware.githubsearcher.ui.profile
+package com.desiredsoftware.githubsearcher.ui.fragment.profile
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -16,8 +15,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment() {
-
-    private lateinit var profileViewModel: ProfileViewModel
 
     lateinit var navController: NavController
 
@@ -33,9 +30,7 @@ class ProfileFragment : Fragment() {
 
         navController = requireParentFragment().findNavController()
 
-        profileViewModel =
-                ViewModelProvider(this).get(ProfileViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_profile, container, false)
+                val root = inflater.inflate(R.layout.fragment_profile, container, false)
 
         val imageViewAvatar: ImageView = root.findViewById(R.id.imageViewAvatar)
         val textViewName: MaterialTextView = root.findViewById(R.id.textViewName)
@@ -63,7 +58,8 @@ class ProfileFragment : Fragment() {
         }
         else
         {
-            val action = ProfileFragmentDirections.actionNavigationProfileToLoginFragment()
+            val action =
+                ProfileFragmentDirections.actionNavigationProfileToLoginFragment()
             navController.navigate(action)
         }
 
