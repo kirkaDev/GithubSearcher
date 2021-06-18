@@ -1,16 +1,10 @@
 package com.desiredsoftware.githubsearcher.presentation.repositories
 
-import android.util.Log
-import com.desiredsoftware.githubsearcher.BuildConfig
 import com.desiredsoftware.githubsearcher.data.RepositoryItem
 import com.desiredsoftware.githubsearcher.data.api.api.ApiClient
-import com.desiredsoftware.githubsearcher.data.commit.CommitSearchResults
 import com.desiredsoftware.utils.BASE_URL
 import com.desiredsoftware.utils.DEVELOPER_PERSONAL_TOKEN
 import com.desiredsoftware.utils.getRussianDateFormat
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll

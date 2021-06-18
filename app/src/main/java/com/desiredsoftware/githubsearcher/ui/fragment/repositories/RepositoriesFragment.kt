@@ -17,10 +17,6 @@ import moxy.ktx.moxyPresenter
 
 class RepositoriesFragment : MvpAppCompatFragment(), IRepositoryDisplayer {
 
-    companion object {
-        fun newInstance() = RepositoriesFragment()
-    }
-
     private var _binding : FragmentRepositoriesBinding? = null
     private val binding get() = _binding!!
 

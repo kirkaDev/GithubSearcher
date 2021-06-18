@@ -9,6 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.desiredsoftware.githubsearcher.R
+import com.desiredsoftware.githubsearcher.databinding.FragmentLoginBinding
+import com.desiredsoftware.githubsearcher.databinding.FragmentSearchBinding
+import com.desiredsoftware.githubsearcher.presentation.login.ILoginHandler
+import com.desiredsoftware.githubsearcher.presentation.login.LoginPresenter
+import com.desiredsoftware.githubsearcher.presentation.searching.SearchingPresenter
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.button.MaterialButton
@@ -16,12 +21,15 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.OAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import moxy.MvpAppCompatFragment
+import moxy.ktx.moxyPresenter
 
-class LoginFragment : Fragment() {
+class LoginFragment : MvpAppCompatFragment(), ILoginHandler {
 
-    companion object {
-        fun newInstance() = LoginFragment()
-    }
+    private val loginPresenter by moxyPresenter { LoginPresenter() }
+
+    private var _binding : FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     lateinit var navController: NavController
 
@@ -30,36 +38,34 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        val rootView = binding.root
+
         navController = requireParentFragment().findNavController()
 
-        val root = inflater.inflate(R.layout.fragment_login, container, false)
-        val buttonLogin: MaterialButton = root.findViewById(R.id.buttonLogin)
-
-        buttonLogin.setOnClickListener(View.OnClickListener {
-                val provider: OAuthProvider.Builder = OAuthProvider.newBuilder("github.com")
-                Firebase.auth
-                    .startActivityForSignInWithProvider(requireActivity(), provider.build())
-                    .addOnSuccessListener(
-                        OnSuccessListener<AuthResult?> {
-                            Log.d("OAuth", "Sign in is success")
-
-                            val action =
-                                LoginFragmentDirections.actionLoginFragmentToNavigationProfile()
-                            navController.navigate(action)
-
-                    })
-                    .addOnFailureListener(
-                        OnFailureListener {
-                            Log.d("OAuth", "Sign in is failure")
-                            it.printStackTrace()
-                        })
+        binding.buttonLogin.setOnClickListener(View.OnClickListener {
+        loginPresenter.makeLogin("github.com")
         })
 
-        return root
+        return rootView
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun openOAuthProvider(providerId: String) {
+        val provider: OAuthProvider.Builder = OAuthProvider.newBuilder(providerId)
+        Firebase.auth
+            .startActivityForSignInWithProvider(requireActivity(), provider.build())
+            .addOnSuccessListener(
+                OnSuccessListener<AuthResult?> {
+                    Log.d("OAuth", "Sign in is success")
+                    val action =
+                        LoginFragmentDirections.actionLoginFragmentToNavigationProfile()
+                    navController.navigate(action)
+                })
+            .addOnFailureListener(
+                OnFailureListener {
+                    Log.d("OAuth", "Sign in is failure")
+                    it.printStackTrace()
+                })
     }
 
 }
