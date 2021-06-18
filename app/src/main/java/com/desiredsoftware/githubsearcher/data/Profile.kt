@@ -9,7 +9,7 @@ data class Profile(
     val gravatar_id: String,
     val html_url: String,
     val id: Int,
-    val login: String,
+    var login: String,
     val node_id: String,
     val organizations_url: String,
     val received_events_url: String,

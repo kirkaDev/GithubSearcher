@@ -30,7 +30,7 @@ class ProfileFragment : Fragment() {
 
         navController = requireParentFragment().findNavController()
 
-                val root = inflater.inflate(R.layout.fragment_profile, container, false)
+        val root = inflater.inflate(R.layout.fragment_profile, container, false)
 
         val imageViewAvatar: ImageView = root.findViewById(R.id.imageViewAvatar)
         val textViewName: MaterialTextView = root.findViewById(R.id.textViewName)
@@ -40,10 +40,9 @@ class ProfileFragment : Fragment() {
         {
             user?.let { loggedUser->
 
-                var email = loggedUser.email
-                var photoUrl = loggedUser.photoUrl.toString()
-                var displayName = loggedUser.displayName
-
+                val email = loggedUser.email
+                val photoUrl = loggedUser.photoUrl.toString()
+                val displayName = loggedUser.displayName
 
             textViewName.text = displayName
             textViewEmail.text = email

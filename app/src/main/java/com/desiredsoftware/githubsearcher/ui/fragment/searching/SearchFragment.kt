@@ -9,9 +9,9 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.desiredsoftware.githubsearcher.R
 import com.desiredsoftware.githubsearcher.data.Profile
 import com.desiredsoftware.githubsearcher.databinding.FragmentSearchBinding
+import com.desiredsoftware.githubsearcher.presentation.searching.IProfileSearchingDisplayer
 import com.desiredsoftware.githubsearcher.presentation.searching.SearchingPresenter
 import com.desiredsoftware.githubsearcher.ui.searching.AccountSearchingAdapter
 import com.desiredsoftware.githubsearcher.ui.searching.OnClickUserListener
@@ -32,7 +32,7 @@ class SearchFragment : MvpAppCompatFragment(), IProfileSearchingDisplayer {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         navController = requireParentFragment().findNavController()
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
@@ -42,13 +42,17 @@ class SearchFragment : MvpAppCompatFragment(), IProfileSearchingDisplayer {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 binding.progressBar.isVisible = true
-                searchingPresenter.searchAndShowProfiles(query)
+                if (!query.isEmpty()) {
+                    searchingPresenter.searchAndShowProfiles(query)
+                }
                 return false
             }
 
             override fun onQueryTextChange(query: String): Boolean {
                 binding.progressBar.isVisible = true
-                searchingPresenter.searchAndShowProfiles(query)
+                if (!query.isEmpty()) {
+                    searchingPresenter.searchAndShowProfiles(query)
+                }
                 return false
             }
         })
@@ -67,5 +71,7 @@ class SearchFragment : MvpAppCompatFragment(), IProfileSearchingDisplayer {
         binding.profileSearchingRecyclerView.layoutManager = GridLayoutManager(context, SPAN_COUNT_SEARCHING_PROFILE_RECYCLER_VIEW)
     }
 
-
+    override fun clearProfileList() {
+        binding.profileSearchingRecyclerView.adapter = null
+    }
 }
