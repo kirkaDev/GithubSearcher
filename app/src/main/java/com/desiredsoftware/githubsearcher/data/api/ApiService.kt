@@ -1,4 +1,4 @@
-package com.desiredsoftware.githubsearcher.data.api.api
+package com.desiredsoftware.githubsearcher.data.api
 
 import com.desiredsoftware.githubsearcher.data.FollowersSearchResults
 import com.desiredsoftware.githubsearcher.data.ProfileSearchResults

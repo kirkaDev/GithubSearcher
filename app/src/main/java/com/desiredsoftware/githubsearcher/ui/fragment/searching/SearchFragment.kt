@@ -1,5 +1,6 @@
 package com.desiredsoftware.githubsearcher.ui.fragment.searching
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.desiredsoftware.githubsearcher.data.Profile
 import com.desiredsoftware.githubsearcher.databinding.FragmentSearchBinding
+import com.desiredsoftware.githubsearcher.di.App
 import com.desiredsoftware.githubsearcher.presentation.searching.IProfileSearchingDisplayer
 import com.desiredsoftware.githubsearcher.presentation.searching.SearchingPresenter
 import com.desiredsoftware.githubsearcher.ui.searching.AccountSearchingAdapter
@@ -18,10 +20,14 @@ import com.desiredsoftware.githubsearcher.ui.searching.OnClickUserListener
 import com.desiredsoftware.utils.SPAN_COUNT_SEARCHING_PROFILE_RECYCLER_VIEW
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
+import javax.inject.Provider
 
 class SearchFragment : MvpAppCompatFragment(), IProfileSearchingDisplayer {
 
-    private val searchingPresenter by moxyPresenter { SearchingPresenter() }
+    @Inject
+    lateinit var presenterProvider: Provider<SearchingPresenter>
+    private val searchingPresenter by moxyPresenter { presenterProvider.get() }
 
     private var _binding : FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -58,6 +64,11 @@ class SearchFragment : MvpAppCompatFragment(), IProfileSearchingDisplayer {
         })
 
         return rootView
+    }
+
+    override fun onAttach(context: Context) {
+        App.appComponent.inject(this)
+        super.onAttach(context)
     }
 
     override fun showProfileList(searchResults : List<Profile>) {

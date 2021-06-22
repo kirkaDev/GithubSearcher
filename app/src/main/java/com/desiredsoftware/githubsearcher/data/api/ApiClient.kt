@@ -1,5 +1,5 @@
-package com.desiredsoftware.githubsearcher.data.api.api
+package com.desiredsoftware.githubsearcher.data.api
 
-class ApiClient(baseUrl : String) {
+class ApiClient (baseUrl : String) {
     val apiService = ApiService.create(baseUrl)
 }

@@ -1,8 +1,8 @@
 package com.desiredsoftware.githubsearcher.presentation.repositories
 
+import android.util.Log
 import com.desiredsoftware.githubsearcher.data.RepositoryItem
-import com.desiredsoftware.githubsearcher.data.api.api.ApiClient
-import com.desiredsoftware.utils.BASE_URL
+import com.desiredsoftware.githubsearcher.data.api.ApiClient
 import com.desiredsoftware.utils.DEVELOPER_PERSONAL_TOKEN
 import com.desiredsoftware.utils.getRussianDateFormat
 import kotlinx.coroutines.Deferred
@@ -15,11 +15,10 @@ import moxy.MvpView
 import moxy.presenterScope
 import moxy.viewstate.strategy.AddToEndStrategy
 import moxy.viewstate.strategy.StateStrategyType
+import javax.inject.Inject
 
 @InjectViewState
-class RepositoriesPresenter : MvpPresenter<IRepositoryDisplayer>() {
-
-    private val apiClient: ApiClient = ApiClient(BASE_URL)
+class RepositoriesPresenter @Inject constructor(val apiClient: ApiClient) : MvpPresenter<IRepositoryDisplayer>() {
 
     fun getSearchRepositoriesResults(userNameForSearch: String) {
 
@@ -33,6 +32,7 @@ class RepositoriesPresenter : MvpPresenter<IRepositoryDisplayer>() {
 
             outRepos.forEach { repo ->
                 val deferred = async {
+                    Log.d("Async HTTP requests", "${repo.name} worked ")
                         getRussianDateFormat(apiClient.apiService.getCommitsSuspend(DEVELOPER_PERSONAL_TOKEN, userNameForSearch, repo.name)
                             .first().commit.author.date).also { repo.last_commit = it }
                 }

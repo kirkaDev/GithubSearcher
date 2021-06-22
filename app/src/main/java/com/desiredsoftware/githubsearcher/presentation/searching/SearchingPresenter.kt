@@ -1,8 +1,6 @@
 package com.desiredsoftware.githubsearcher.presentation.searching
-
 import com.desiredsoftware.githubsearcher.data.Profile
-import com.desiredsoftware.githubsearcher.data.api.api.ApiClient
-import com.desiredsoftware.utils.BASE_URL
+import com.desiredsoftware.githubsearcher.data.api.ApiClient
 import com.desiredsoftware.utils.DEVELOPER_PERSONAL_TOKEN
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
@@ -14,12 +12,11 @@ import moxy.MvpView
 import moxy.presenterScope
 import moxy.viewstate.strategy.AddToEndStrategy
 import moxy.viewstate.strategy.StateStrategyType
-
+import javax.inject.Inject
 
 @InjectViewState
-class SearchingPresenter : MvpPresenter<IProfileSearchingDisplayer>() {
-
-    private val apiClient: ApiClient = ApiClient(BASE_URL)
+class SearchingPresenter @Inject constructor(
+    private val apiClient: ApiClient) : MvpPresenter<IProfileSearchingDisplayer>() {
 
     fun searchAndShowProfiles(userNameForSearch: String) {
 
@@ -53,10 +50,11 @@ class SearchingPresenter : MvpPresenter<IProfileSearchingDisplayer>() {
     }
 }
 
-    interface IProfileSearchingDisplayer : MvpView {
-        @StateStrategyType(AddToEndStrategy::class)
-        fun showProfileList(searchResults: List<Profile>)
+interface IProfileSearchingDisplayer : MvpView {
+    @StateStrategyType(AddToEndStrategy::class)
+    fun showProfileList(searchResults: List<Profile>)
 
-        @StateStrategyType(AddToEndStrategy::class)
-        fun clearProfileList()
+    @StateStrategyType(AddToEndStrategy::class)
+    fun clearProfileList()
 }
+
