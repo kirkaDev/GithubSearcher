@@ -7,8 +7,10 @@ import java.util.*
     fun getRussianDateFormat (dateForReformatting: String) : String {
         val inDateFormat: DateFormat =
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+
         val outDateFormat: DateFormat =
-            SimpleDateFormat("MM.dd.yyyy")
+            SimpleDateFormat("dd.MM.yyyy")
+
         val inDate : Date = inDateFormat.parse(dateForReformatting)
 
         return outDateFormat.format(inDate)
