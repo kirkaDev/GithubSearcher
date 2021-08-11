@@ -1,4 +1,5 @@
 package com.desiredsoftware.githubsearcher.presentation.searching
+import android.util.Log
 import com.desiredsoftware.githubsearcher.data.Profile
 import com.desiredsoftware.githubsearcher.data.api.ApiClient
 import com.desiredsoftware.utils.DEVELOPER_PERSONAL_TOKEN
@@ -24,6 +25,8 @@ class SearchingPresenter @Inject constructor(
 
         var listProfiles: List<Profile> = emptyList()
 
+        try
+        {
         presenterScope.launch {
             val deferreds = mutableListOf<Deferred<Int>>()
 
@@ -46,6 +49,10 @@ class SearchingPresenter @Inject constructor(
 
             deferreds.awaitAll()
             viewState.showProfileList(listProfiles)
+        }
+        }
+        catch (throwable: Throwable){
+            Log.d("http", throwable.printStackTrace().toString())
         }
     }
 }

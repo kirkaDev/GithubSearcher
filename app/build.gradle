@@ -9,14 +9,6 @@ plugins {
 apply plugin: 'kotlin-kapt'
 
 android {
-    signingConfigs {
-        debug {
-            storeFile file('C:\\Program Files\\Android\\Projects\\GithubSearcher\\key\\keystore.jks')
-            storePassword 'kirusha2188'
-            keyAlias 'githubsearcher'
-            keyPassword 'kirusha2188'
-        }
-    }
 
     compileSdkVersion 30
     buildToolsVersion "30.0.3"

@@ -2,6 +2,7 @@ package com.desiredsoftware.githubsearcher.ui.fragment.searching
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,12 +46,21 @@ class SearchFragment : MvpAppCompatFragment(), IProfileSearchingDisplayer {
 
         val rootView = binding.root
 
+        try {
+            searchingPresenter.searchAndShowProfiles("")
+        }
+        catch (e: Exception)
+        {
+            Log.d("Http", e.printStackTrace().toString())
+            e.printStackTrace()
+        }
+
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 binding.progressBar.isVisible = true
-                if (!query.isEmpty()) {
+                //if (!query.isEmpty()) {
                     searchingPresenter.searchAndShowProfiles(query)
-                }
+                //}
                 return false
             }
 
